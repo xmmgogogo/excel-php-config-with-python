@@ -1,0 +1,31 @@
+{
+    "tips"          : "全部c打头的都是注释，忽略不计！！！！",
+
+    "c1"            : "----------配置文件夹名（facebook，armorGame，kongreGate, friendSter, y8, newGround），这里指定配置版本（要改）----------",
+    "configName"    : "facebook",
+    "lang"          : "en",
+
+    "c2"            : "----------excel配置文件夹（要改）----------",
+    "filePath"      : "D:\\TD_Doc\\数值\\%s\\",
+
+    "c3"            : "----------基础配置-本地存放目录（要改）----------",
+    "basePath"      : "D:\\facebook_td\\towerdefense_php\\release\\v20130228\\j7\\app\\configs\\%s\\",
+
+    "c4"            : "----------基础配置-dev测试环境存放目录（不需要改）----------",
+    "serverPath"    : "/dev-fb-td.shinezoneapp.com/web/%s/v20130228/j7/app/configs/%s",
+
+    "c5"            : "----------拷贝目录（要改）原始目录 | 拷贝目录----------",
+    "sourcePath"    : "D:\\facebook_td\\towerdefense_php\\release\\",
+    "copyPath"      : "D:\\facebook_td\\dev_main2\\",
+	"main2Path"      : "D:\\facebook_td\\dev_main2\\",
+
+    "c6"            : "----------导出文件临时存放目录（不需要改）----------",
+    "savePath"      : "C:\\",
+
+    "c7"            : "----------服务器配置（不需要改）----------",
+    "server"    : {
+        "host"  : "127.0.0.1",
+        "user"  : "admin",
+        "pwd"   : "admin"
+    }
+}
