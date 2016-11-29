@@ -1,0 +1,33 @@
+{
+    "tips"              : "全部c打头的都是注释，忽略不计！！！！",
+    "toPath_keys"       : "fb,ag,kg,mi",
+    
+    "c1"                : "----------当前TD全部版本目录手动配置----------",
+    "toPath_list"       : "fb",
+     
+    "toPath_ag"         : "D:\\vikingage-ag.shinezone.com\\release\\",
+    "toPath_fb"         : "E:\\vikingage-fb-en.shinezone.com\\release\\",
+    "toPath_kg"         : "E:\\vikingage-release-svn-down\\vikingage-kg.shinezone.com\\release\\",
+	"toPath_mi"         : "D:\\release-de\\td2\\",
+
+
+
+    "toPath_de"         : "D:\\release-de\\td2\\",
+    "toPath_fr"         : "D:\\release-french\\td2\\",
+    "toPath_lk"         : "D:\\release-lekool\\td2\\",
+    "toPath_y8"         : "D:\\release-y8y8y8\\td2\\",
+    "toPath_ng"         : "D:\\release-newgrounds\\td2\\",
+    "toPath_ad"         : "D:\\release-addicting\\td2\\",
+    "toPath_fs"         : "D:\\release-friendster\\code\\",
+    "toPath_el"         : "D:\\release-elex\\td2\\",
+    "toPath_spil-en"    : "D:\\release-spil-en\\td2\\",
+    "toPath_spil-fr"    : "D:\\release-spil-fr\\td2\\",
+    "toPath_portugal"   : "D:\\release-portugal\\td2\\",
+
+    "c2"                : "----------PHP代码同步目录(这里改成main2)----------",
+    "comparePath"       : "D:\\dev_vamain\\v20130228\\",
+
+    "c3"                : "----------上传文件(手动导出的目录)----------",
+    "sourcePath"        : "C:\\Tower_Defense\\facebook\\dev_vamain\\v20130228"
+
+}

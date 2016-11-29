@@ -67,17 +67,22 @@ function actFormatByType($value, $type) {
 $filename = $_SERVER["argv"][1];
 $filename2 = str_replace('.php', '.txt', $filename);
 
-$keydata = file_get_contents('c:\\' . $filename2);
+if($_SERVER["argv"][2] == 1) {
+	$config = file_get_contents("c:\\excelConfig.json");
+} elseif($_SERVER["argv"][2] == 2) {
+	$config = file_get_contents("c:\\excelConfig-vikingage.json");	
+}
+
+$config = json_decode($config, true);
+
+$keydata = file_get_contents($config['savePath'] . $filename2);
 $keydata = json_decode($keydata, true);
 
-$data = file_get_contents('c:\\' . $filename);
+$data = file_get_contents($config['savePath'] . $filename);
 $data = json_decode($data, true);
 // ksort($data);
 
 $name = str_replace('.php', '', $filename);
-
-$config = file_get_contents("c:\\excelConfig-vikingage.json");
-$config = json_decode($config, true);
 
 //如果是普通配置文件，则替换平台
 if(!in_array($name, array('gameSetconfig'))) {
@@ -123,8 +128,8 @@ if(in_array($filename, $moreLangDir)) {
     copy($namePath . '\en_us.php', $namePath . '\zh_tw.php');
 }
 
-unlink('c:\\' . $filename);
-unlink('c:\\' . $filename2);
+unlink($config['savePath'] . $filename);
+unlink($config['savePath'] . $filename2);
 
 if($r)
     echo "[$name] write ok!\r\n";

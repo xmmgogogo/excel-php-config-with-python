@@ -1,9 +1,19 @@
 <?php
-$config = file_get_contents("c:\\excelConfig.json");
+if($_SERVER["argv"][2] == 1) {
+	$config = file_get_contents("c:\\excelConfig.json");
+} elseif($_SERVER["argv"][2] == 2) {
+	$config = file_get_contents("c:\\excelConfig-vikingage.json");	
+}
+
 $config = json_decode($config, true);
 
 // $fromPath = 'D:/facebook_td/branches/TD_Branch_001/release/v20130228/j7/app/configs/';
 // $toPath = 'D:/facebootd/branches/TD_Branch_001/release/v20130228/j7/app/configs/';
+
+//如果是普通配置文件，则替换平台
+if($_SERVER["argv"][2] == 2) {
+    $config['configName'] = 'commonConfig';
+}
 
 $fromPath = $toPath = sprintf($config['basePath'], $config['configName']);
 
@@ -65,19 +75,19 @@ function cuttingWaves($key, $lang) {
 	$_fromPath = $fromPath . 'tollgates';
 	$_fromPath2 = $fromPath . 'waves';
 	$_fromPath3 = $fromPath . 'subWave';
-	$_fromPath4 = $fromPath . 'christmasToll';//add 新加
+//	$_fromPath4 = $fromPath . 'christmasToll';//add 新加
 	$_toPath = $toPath . 'wavesInfo';
 
 	if($lang == 'en_us') {
 		$path = $_fromPath . '/en_us.php';
 		$path2 = $_fromPath2 . '/en_us.php';
 		$path3 = $_fromPath3 . '/en_us.php';
-		$path4 = $_fromPath4 . '/en_us.php';
+//		$path4 = $_fromPath4 . '/en_us.php';
 	} else {
 		$path = $_fromPath . '/zh_tw.php';
 		$path2 = $_fromPath2 . '/zh_tw.php';
 		$path3 = $_fromPath3 . '/zh_tw.php';
-		$path4 = $_fromPath4 . '/zh_tw.php';
+//		$path4 = $_fromPath4 . '/zh_tw.php';
 	}
 
 	$errorLog = array();
@@ -85,7 +95,7 @@ function cuttingWaves($key, $lang) {
 		include($path);
 		include($path2);
 		include($path3);
-		include($path4);
+//		include($path4);
 		$readconfig = $J7CONFIG[$key];
 		foreach($readconfig as $configId => $tollInfo) {
 			$setVal = array($configId => array());

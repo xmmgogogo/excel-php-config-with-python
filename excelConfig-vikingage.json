@@ -6,26 +6,26 @@
     "lang"          : "en",
 
     "c2"            : "----------excel配置文件夹（要改）----------",
-    "filePath"      : "D:\\TD_Doc\\数值\\%s\\",
+    "filePath"      : "D:\\TD_Doc\\TD2工作目录\\配置文档\\%s\\",
 
     "c3"            : "----------基础配置-本地存放目录（要改）----------",
     "basePath"      : "D:\\facebook_td\\vikingage_php\\release\\v20130228\\j7\\app\\configs\\%s\\",
 
     "c4"            : "----------基础配置-dev测试环境存放目录（不需要改）----------",
-    "serverPath"    : "/data1/www/dev-fb-vikingage.shinezone.com/www/%s/v20130228/j7/app/configs/%s",
+    "serverPath"    : "/www/%s/v20130228/j7/app/configs/%s",
 
     "c5"            : "----------拷贝目录（要改）原始目录 | 拷贝目录----------",
     "sourcePath"    : "D:\\facebook_td\\vikingage_php\\release\\",
-    "copyPath"      : "D:\\facebook_td\\dev_main2\\",
-	"main2Path"      : "D:\\facebook_td\\dev_main2\\",
+    "copyPath"      : "D:\\dev_vamain\\",
+	"main2Path"     : "D:\\dev_vamain\\",
 
     "c6"            : "----------导出文件临时存放目录（不需要改）----------",
-    "savePath"      : "C:\\",
+    "savePath"      : "E:\\VA-configs\\",
 
     "c7"            : "----------服务器配置（不需要改）----------",
     "server"    : {
-        "host"  : "127.0.0.1",
-        "user"  : "admin",
-        "pwd"   : "admin"
+        "host"  : "172.17.5.168",
+        "user"  : "td-vikingage",
+        "pwd"   : "td2015"
     }
 }

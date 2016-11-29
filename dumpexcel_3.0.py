@@ -8,58 +8,63 @@ import sys
 import paramiko
 from ftplib import FTP
 
-#æ›´æ–°svn
-print "ç¨ç­‰>>>>>>>>>>>>>>> SVNæ›´æ–°ä¸­"
-os.system("svn update D:\TD_Doc\æ•°å€¼")
+#¸üĞÂsvn
+print "ÉÔµÈ>>>>>>>>>>>>>>> SVN¸üĞÂÖĞ"
+os.system("svn update D:\TD_Doc\TD2¹¤×÷Ä¿Â¼\ÅäÖÃÎÄµµ")
 
-# excelæ–‡ä»¶å
+# excelÎÄ¼şÃû
 excelMaps = [
-    'Task', 'newbie', 'TD_Achieves', 'lang', 'TD_HERO', 'TD_Home', 'TD_Item', 'TD_Monsters',
-    'TD_SKILL', 'TD_WareHouse', 'WAVES', 'SUB_WAVES', 'Task-test', 'TD_TOWER', 'tollgates',
-    'TD_Tavern', 'TD_Hire', 'TD_Soldiers', 'endlessWaves', 'TD_Orders', 'TD_Reward', 'TD_Train',
-    'TD_SpiritInfo', 'Endless_Sub_Waves', 'TD_barracks', ' TD_Activity', 'wildMonster', 'TD_explosion',
-    'TD_Expedition', 'pop', 'TD_PVP', 'TD_NPC', 'TD_Vip', 'TD_Technology', 'TD_Competition', 'TD_Dock',
-    'GameSetting'
+    'Task_VA', 'newbie_VA', 'TD_Achieves', 'lang_VA', 'HERO_VA', 'Home_VA', 'Item_VA', 'Monsters_VA',
+    'SKILL_VA', 'TD_WareHouse', 'WAVES_VA', 'SUB_WAVES_VA', 'Task-test', 'TOWER_VA', 'tollgates_VA',
+    'Tavern_VA', 'TD_Hire', 'Soldiers_VA', 'endlessWaves', 'Orders_VA', 'Reward_VA', 'Train_VA',
+    'TD_SpiritInfo', 'Endless_Sub_Waves', 'barracks_VA', 'Activity_VA', 'wildMonster_VA', 'TD_explosion',
+    'TD_Expedition', 'pop', 'PVP_VA', 'NPC_VA', 'Vip_VA', 'TD_Technology', 'TD_Competition', 'Dock_VA',
+    'gameSetconfig', 'dropInfo_VA','Port_VA','Dragonester_VA','Totem_VA','HerrCountry_VA','Ornament_VA',
+	'Union_VA'
 ]
 
-#è¿‡æ»¤çš„sheet
+# excelMaps = ['Task', 'newbie', 'TD_Achieves', 'lang', 'TD_HERO', 'TD_Home', 'TD_Item', 'TD_Monsters', 'TD_SKILL', 'TD_WareHouse', 'WAVES', 'SUB_WAVES', 'Task-test', 'TD_TOWER', 'tollgates', 'TD_Tavern', 'TD_Hire', 'TD_Soldiers', 'endlessWaves', 'TD_Orders', 'TD_Reward', 'TD_Train', 'TD_SpiritInfo','Endless_Sub_Waves','TD_barracks','TD_Activity','wildMonster','TD_explosion','TD_Expedition','pop', 'TD_PVP', 'TD_NPC', 'TD_Vip', 'TD_Technology', 'TD_Competition', 'TD_Dock'];
+
+#¹ıÂËµÄsheet
 fitter_keys = ['levelUp', '', 'game_init', 'Sheet1', 'Sheet2', 'Sheet3', 'Sheet4', 'Sheet5']
-#ä¼ è¡¨çš„æ–‡ä»¶å¤¹åŒºåˆ†ï¼ˆé€šç”¨é…ç½®å’Œå¹³å°å•ç‹¬é…ç½®ï¼‰
-common_keys = ['worldBoss', 'gameSetconfig', 'competitionProgress']
-#ç‰¹æ®Šé…ç½®æ–‡ä»¶
+#´«±íµÄÎÄ¼ş¼ĞÇø·Ö£¨Í¨ÓÃÅäÖÃºÍÆ½Ì¨µ¥¶ÀÅäÖÃ£©
+common_keys = ['worldBoss', 'gameSetconfig', 'competitionProgress', 'orders', 'unlock']
+#ÌØÊâÅäÖÃÎÄ¼ş
 special_keys = ['gameSetconfig']
 
 def usage():
-    print "1ï¼Œå‘½ä»¤è¡Œè¿è¡Œc:\dumpexcel_2.0.py"
-    print "2ï¼Œé€‰æ‹©éœ€è¦å¯¼å‡ºçš„Excel"
-    print "3ï¼Œé€‰æ‹©æ˜¯å¦ä¸Šä¼ åˆ°æœåŠ¡å™¨"
-    print "4ï¼Œé€‰æ‹©ä¸Šä¼ åˆ°å“ªä¸€ä¸ªæœåŠ¡å™¨"
+    print "1£¬ÃüÁîĞĞÔËĞĞc:\dumpexcel_2.0.py"
+    print "2£¬Ñ¡ÔñĞèÒªµ¼³öµÄExcel"
+    print "3£¬Ñ¡ÔñÊÇ·ñÉÏ´«µ½·şÎñÆ÷"
+    print "4£¬Ñ¡ÔñÉÏ´«µ½ÄÄÒ»¸ö·şÎñÆ÷"
 
 
 def main():
-    #æ ¼å¼ï¼š0,1,2|1|dev_branch
-    #é»˜è®¤ä»001é‡Œé¢è·å–?
+    #¸ñÊ½£º0,1,2|1|dev_branch
+    #Ä¬ÈÏ´Ó001ÀïÃæ»ñÈ¡?
 
     rName = '''
-    #########################æ–°ç‰ˆæ”¹åŠ¨--->1,æ‰‹åŠ¨è¾“å…¥excellç›®å½• 2,æŒ‡å®šä¸Šä¼ ç¯å¢ƒ#########################
-    è¯·ã€é€‰æ‹©ã€‘æ–‡ä»¶åºå·(3,15,21)|é…ç½®ç›®å½•(2.0, ArmorGames)|ä¸Šä¼ ç¯å¢ƒ(branch, cehua, master)|æ˜¯å¦ä¸Šä¼ (1)
-    å‚è€ƒæ ·å¼ï¼š4,7,15|ä¸Šä¼ ç‰ˆæœ¬|ArmorGames|branch|1ã€‚é»˜è®¤ä¸Šä¼ branchï¼Œåªéœ€è¦å¡«å†™åºå·å³å¯ï¼?
+    #########################ĞÂ°æ¸Ä¶¯--->1,ÊÖ¶¯ÊäÈëexcellÄ¿Â¼ 2,Ö¸¶¨ÉÏ´«»·¾³#########################
+    Çë¡¾Ñ¡Ôñ¡¿ÎÄ¼şĞòºÅ(3,15,21)|ÉÏ´«°æ±¾(2.0, ArmorGames)|ÉÏ´«»·¾³(branch, cehua, master)|ÊÇ·ñÉÏ´«(1)
+    ²Î¿¼ÑùÊ½:4,7|1|2.0|branch(Ä¬ÈÏbranch)     ¡¾TD1 - kot¡¿
+    ²Î¿¼ÑùÊ½:3,2|2|EN|release(Ä¬ÈÏrelease)    ¡¾TD2 - vikingage¡¿
 
-    //////////////////////////////////////////////////////////////////////////////////////////////////////////
-    / 0   = Task      | 1   = Newbie      | 2   = Achieves     | 3   = lang               | 4  = Hero        /
-    / 5   = Home      | 6   = Item        | 7   = Monsters     | 8   = Skill              | 9  = WareHouse   /
-    / 10  = Waves     | 11  = Sub_waves   | 12  = Task-test    | 13  = Tower              | 14 = Tollgates   /
-    / 15  = Tavern    | 16  = Hire        | 17  = Soldiers     | 18  = EndlessWaves       | 19 = Orders      /
-    / 20  = Reward    | 21  = Train       | 22  = SpiritInfo   | 23  = Endless_Sub_Waves  | 24 = Barracks    /
-    / 25  = Activity  | 26  = WildMonster | 27  = Explosion    | 28  = Expedition         | 29 = Pop         /
-    / 30  = PVP       | 31  = NPC         | 32  = Vip          | 33  = Technology         | 34 = Competition / 
-    / 35  = Dock      | 36  = GameSetting | 999 = (å…¨éƒ¨ä¸Šä¼ )    |                                             /
-    //////////////////////////////////////////////////////////////////////////////////////////////////////////
+    ////////////////////////////////////////////////////////////////////////////////////////////////////////////
+    / 0   = Task      | 1   = Newbie        | 2   = Achieves     | 3   = lang               | 4  = Hero        /
+    / 5   = Home      | 6   = Item          | 7   = Monsters     | 8   = Skill              | 9  = WareHouse   /
+    / 10  = Waves     | 11  = Sub_waves     | 12  = Task-test    | 13  = Tower              | 14 = Tollgates   /
+    / 15  = Tavern    | 16  = Hire          | 17  = Soldiers     | 18  = EndlessWaves       | 19 = Orders      /
+    / 20  = Reward    | 21  = Train         | 22  = SpiritInfo   | 23  = Endless_Sub_Waves  | 24 = Barracks    /
+    / 25  = Activity  | 26  = WildMonster   | 27  = Explosion    | 28  = Expedition         | 29 = Pop         /
+    / 30  = PVP       | 31  = NPC           | 32  = Vip          | 33  = Technology         | 34 = Competition /
+    / 35  = Dock      | 36  = gameSetconfig | 37  = dropInfos    | 38  = Port               | 39 = Dragonester /
+    / 40  = Totem     | 41  = HerrCountry   | 42  = Ornament     | 43  = Union_VA           | 999 = (È«²¿ÉÏ´«) /
+    ////////////////////////////////////////////////////////////////////////////////////////////////////////////
     '''
     rawSomething = raw_input(rName)
     rawSomething = rawSomething.split('|')
     if len(rawSomething) < 1:
-        print "ä¼ å…¥åºå·ä¸æ­£ç¡®ï¼é‡æ–°ä¼ å…¥ï¼"
+        print "´«ÈëĞòºÅ²»ÕıÈ·£¡ÖØĞÂ´«Èë£¡"
         usage()
         sys.exit()
 
@@ -67,19 +72,19 @@ def main():
     startTime = time.time()
 
     #['0,1,2', '2.0', 'dev_branch', 1]
-    #å¯¼å‡ºname
+    #µ¼³öname
     excelNames = rawSomething[0].split(',')
     if '999' in excelNames:
         excelNames = range(0, 36)
         del excelNames[12]
 
-    # é»˜è®¤ä¸Šä¼ 
+    # Ä¬ÈÏÉÏ´«
     isUpload = 1
-    #é€‰æ‹©ç‰ˆæœ¬ç›®å½•
-    workSpace = '2.0'
-    # é»˜è®¤ä¸Šä¼ ç¯å¢ƒ
+    #Ñ¡Ôñ°æ±¾Ä¿Â¼
+    workSpace = 'EN'
+    # Ä¬ÈÏÉÏ´«»·¾³
     baseUploadDev = 'branch'
-    # ä¸Šä¼ ç‰ˆæœ¬
+    # ÉÏ´«°æ±¾
     cur_version = 2
 
     if len(rawSomething) >= 2:
@@ -96,21 +101,23 @@ def main():
         baseUploadDev = 'dev_' + baseUploadDev
         fileConfig = json.load((file('c:\excelConfig.json')))
     else:
-        baseUploadDev = 'release' # todo
+        if baseUploadDev == 'branch':#Ä¬ÈÏ
+            baseUploadDev = 'release'
         fileConfig = json.load((file('c:\excelConfig-vikingage.json')))
 
     filePath = fileConfig['filePath'] % workSpace
     # print type(cur_version)
+    # print filePath
 
-    #éå†å…¨éƒ¨å¯¼å‡ºexcel
+    #±éÀúÈ«²¿µ¼³öexcel
     for getExcelNameId in excelNames:
         getExcelNameId = int(getExcelNameId)
 
-        #åŠ å…¥åˆ¤æ–­æ¡ä»¶
-        if getExcelNameId not in special_keys:
+        #¼ÓÈëÅĞ¶ÏÌõ¼ş
+        if excelMaps[getExcelNameId] not in special_keys:
             isUploadFlag = 0
 
-            #è¯»å–excel2007æ–‡ä»¶
+            #¶ÁÈ¡excel2007ÎÄ¼ş
             filePathName = filePath + excelMaps[getExcelNameId] + '.xlsx'
             if os.path.isfile(filePathName) == False:
                 filePathName = filePath + 'TD_' + excelMaps[getExcelNameId] + '.xlsx'
@@ -119,11 +126,11 @@ def main():
 
             readExcel = load_workbook(filePathName)
 
-            #å–ç¬¬ä¸€å¼ è¡¨
+            #È¡µÚÒ»ÕÅ±í
             sheetNames = readExcel.get_sheet_names()
             savePath = fileConfig['savePath']
             for sheetName in sheetNames:
-                # è¿‡æ»¤ä¸éœ€è¦ç”Ÿæˆé…ç½®æ–‡ä»¶çš„excelå
+                # ¹ıÂË²»ĞèÒªÉú³ÉÅäÖÃÎÄ¼şµÄexcelÃû
                 if re.match('#', sheetName) or sheetName in fitter_keys:
                     continue
 
@@ -133,33 +140,33 @@ def main():
                 keyData = []
 
                 for _row in range(ws.get_highest_row()):
-                    # å°†æ¯è¡Œç¬¬ä¸€åˆ—ä½œä¸ºkey
+                    # ½«Ã¿ĞĞµÚÒ»ÁĞ×÷Îªkey
                     firstCellVal = ws.cell(row=_row, column=0).value
-                    # ç”³æ˜æ–°çš„å­—å…¸ï¼Œä¿å­˜æ•°æ®
+                    # ÉêÃ÷ĞÂµÄ×Öµä£¬±£´æÊı¾İ
                     if _row > 2:
                         allData[firstCellVal] = {}
 
                     for _column in range(ws.get_highest_column()):
-                        # è·å–æ•°æ®é›†å›ºå®šçš„å­—æ®µå
+                        # »ñÈ¡Êı¾İ¼¯¹Ì¶¨µÄ×Ö¶ÎÃû
                         firstCellKey = ws.cell(row=2, column=_column).value
 
                         if not firstCellKey:
                             continue
                         if type(firstCellKey) != unicode:
                             firstCellKey = str(firstCellKey)
-                            # è·å–æ¯è¡Œæ¯åˆ—çš„å­—æ®µæ•°å€¼
+                            # »ñÈ¡Ã¿ĞĞÃ¿ÁĞµÄ×Ö¶ÎÊıÖµ
                         cellVal = ws.cell(row=_row, column=_column).value
 
-                        # print cellVal, _row, _column #æ£€æµ‹æŠ¥é”™è¡Œåˆ—
+                        # print cellVal, _row, _column #¼ì²â±¨´íĞĞÁĞ
 
-                        # ç¬¬äºŒè¡Œå­˜å‚¨å­—æ®µå
+                        # µÚ¶şĞĞ´æ´¢×Ö¶ÎÃû
                         if _row == 2:
                             if not re.search('\*', firstCellKey):
                                 if firstCellKey not in keyData:
                                     keyData.append(firstCellKey)
                                 columnKey[_column] = cellVal
 
-                        # ä»ç¬¬äºŒè¡Œå¼€å§‹
+                        # ´ÓµÚ¶şĞĞ¿ªÊ¼
                         if _row > 2:
                             if re.search('\*', firstCellKey):
                                 continue
@@ -179,15 +186,15 @@ def main():
                 f.write(json.dumps(keyData))
                 f.close()
 
-                os.system('php c:\\phpDecode.php ' + sheetName + '.php')
+                os.system('php c:\\phpDecode.php ' + sheetName + '.php ' + str(cur_version))
 
-                #è¿™é‡Œå¤šä¸€ä¸ªæ“ä½œï¼Œè‹¥å±äºç‰¹æ®Šåˆ†è¡¨æ–‡ä»¶ï¼Œè¿›è¡Œåˆ†è¡¨
+                #ÕâÀï¶àÒ»¸ö²Ù×÷£¬ÈôÊôÓÚÌØÊâ·Ö±íÎÄ¼ş£¬½øĞĞ·Ö±í
                 if getExcelNameId in [6, 11, 10, 14]:
                     # print getExcelNameId , "==================================" , isUploadFlag
-                    os.system('php c:\\cuttingConfig.php ' + sheetName)
+                    os.system('php c:\\cuttingConfig.php ' + sheetName + ' ' + str(cur_version))
                     if getExcelNameId in [11, 10, 14] and isUploadFlag == 0:
                         # print baseUploadDev
-                        ftpClass('up', 'wavesInfo', 'wavesInfo', baseUploadDev, fileConfig)
+                        ftpClass('up', 'wavesInfo', 'wavesInfo', baseUploadDev, fileConfig, cur_version)
                         isUploadFlag = 1
 
                 #ftp
@@ -223,7 +230,7 @@ def main():
                 f.write(json.dumps(keyData))
                 f.close()
 
-                os.system('php c:\\phpDecode-gameSet.php ' + sheetName + '.php ')
+                os.system('php c:\\phpDecode-gameSet.php ' + sheetName + '.php ' + str(cur_version))
 
                 #ftp
                 if isUpload:
@@ -232,16 +239,16 @@ def main():
                     # if isUpload == 0:
                     #     os.system('c:\\copyGit_Svn.py ')
 
-    print "\nè€—æ—¶:", str("%.2f" % (time.time() - startTime)) + "s."
+    print "\nºÄÊ±:", str("%.2f" % (time.time() - startTime)) + "s."
 
-# FTPæ–‡ä»¶æ“ä½œ
+# FTPÎÄ¼ş²Ù×÷
 def ftpClass(type, baseFile, serverFile, devName, fileConfig, cur_version):
     host = fileConfig['server']['host']
     user = fileConfig['server']['user']
     pwd = fileConfig['server']['pwd']
 
     # config name ----> see in xml
-    #è¿™é‡Œæ¯”è¾ƒå‘çˆ¹ï¼ŒUnicodeå’Œstring æ··ä¸€èµ·å¿…ç„¶æŠ¥é”™.ä¸€å®šå…ˆå°†Unicode è½¬æ¢ä¸ºstring
+    #ÕâÀï±È½Ï¿Óµù£¬UnicodeºÍstring »ìÒ»Æğ±ØÈ»±¨´í.Ò»¶¨ÏÈ½«Unicode ×ª»»Îªstring
     configPath = fileConfig['configName'].encode("utf-8")
 
     if cur_version == 1:
@@ -249,15 +256,21 @@ def ftpClass(type, baseFile, serverFile, devName, fileConfig, cur_version):
         ftp.connect(host)
         ftp.login(user, pwd)
     else:
-        ssh_connect(host, 22, user, pwd)
-        client = paramiko.Transport((host, 22))
-        client.connect(username=user, password=pwd)
-        ftp = paramiko.SFTPClient.from_transport(client)
+        # ssh_connect(host, 22, user, pwd)
+        # client = paramiko.Transport((host, 22))
+        # client.connect(username=user, password=pwd)
+        # ftp = paramiko.SFTPClient.from_transport(client)
+        ftp = FTP()
+        ftp.connect(host)
+        ftp.login(user, pwd)
 
-        # ç‰¹æ®Šå¤„ç†viking-age
+        # ÌØÊâ´¦Àíviking-age
         if baseFile not in common_keys:
             configPath = 'commonConfig'
             # print configPath, baseFile
+
+    # ÕâÀïĞ´ËÀÎª1£¬ÒòÎªÇ¿ÖÆÈÃÔËÎ¬ĞŞ¸ÄÎªftp¶ø·ÇÊ¹ÓÃsftp (È¥µô×¢ÊÍ¿É¼æÈİsftp)
+    cur_version = 1
 
     basePath = fileConfig['basePath']
     serverPath = fileConfig['serverPath']
@@ -286,7 +299,7 @@ def ftpClass(type, baseFile, serverFile, devName, fileConfig, cur_version):
     else:
         client.close()
 
-# FTPæ–‡ä»¶ä¸Šä¼ 
+# FTPÎÄ¼şÉÏ´«
 def ftpUp(ftp, baseFile, serverFile, devName, configPath, cur_version):
     # print baseFile, serverFile
     if cur_version == 1:
@@ -297,9 +310,9 @@ def ftpUp(ftp, baseFile, serverFile, devName, configPath, cur_version):
         result = ftp.put(baseFile, serverFile)
 
     # print type(result)
-    print "æˆåŠŸä¸Šä¼ è‡³-[" + baseFile.encode("utf-8")[-9:] + "]->" + devName + "(" + configPath + ")"
+    print "³É¹¦ÉÏ´«ÖÁ-[" + baseFile.encode("utf-8")[-9:] + "]->" + devName + "(" + configPath + ")"
 
-# FTPæ–‡ä»¶ä¸‹è½½
+# FTPÎÄ¼şÏÂÔØ
 def ftpDown(ftp, baseFile, serverFile, cur_version):
     if cur_version == 1:
         f = open(baseFile, 'wb')
@@ -308,7 +321,7 @@ def ftpDown(ftp, baseFile, serverFile, cur_version):
     else:
         result = ftp.get(baseFile, serverFile)
 
-    print "æˆåŠŸä¸‹è½½-[" + baseFile.encode("utf-8")[-9:] + "]->" + devName + "(" + configPath + ")"
+    print "³É¹¦ÏÂÔØ-[" + baseFile.encode("utf-8")[-9:] + "]->" + devName + "(" + configPath + ")"
 
 
 def ssh_connect(server_ip, server_port, server_user, server_passwd):
@@ -324,18 +337,18 @@ def ssh_disconnect(client):
 
 def win_to_linux(sftp, localpath, remotepath):
     '''
-    windowså‘linuxæœåŠ¡å™¨ä¸Šä¼ æ–‡ä»¶.
-    localpath  ä¸ºæœ¬åœ°æ–‡ä»¶çš„ç»å¯¹è·¯å¾„ã€‚å¦‚ï¼šD:\test.py
-    remotepath ä¸ºæœåŠ¡å™¨ç«¯å­˜æ”¾ä¸Šä¼ æ–‡ä»¶çš„ç»å¯¹è·¯å¾„,è€Œä¸æ˜¯ä¸€ä¸ªç›®å½•ã€‚å¦‚ï¼š/tmp/my_file.txt
+    windowsÏòlinux·şÎñÆ÷ÉÏ´«ÎÄ¼ş.
+    localpath  Îª±¾µØÎÄ¼şµÄ¾ø¶ÔÂ·¾¶¡£Èç£ºD:\test.py
+    remotepath Îª·şÎñÆ÷¶Ë´æ·ÅÉÏ´«ÎÄ¼şµÄ¾ø¶ÔÂ·¾¶,¶ø²»ÊÇÒ»¸öÄ¿Â¼¡£Èç£º/tmp/my_file.txt
     '''
     sftp.put(localpath, remotepath)
 
 
 def linux_to_win(sftp, localpath, remotepath):
     '''
-    ä»linuxæœåŠ¡å™¨ä¸‹è½½æ–‡ä»¶åˆ°æœ¬åœ°
-    localpath  ä¸ºæœ¬åœ°æ–‡ä»¶çš„ç»å¯¹è·¯å¾„ã€‚å¦‚ï¼šD:\test.py
-    remotepath ä¸ºæœåŠ¡å™¨ç«¯å­˜æ”¾ä¸Šä¼ æ–‡ä»¶çš„ç»å¯¹è·¯å¾„,è€Œä¸æ˜¯ä¸€ä¸ªç›®å½•ã€‚å¦‚ï¼š/tmp/my_file.txt
+    ´Ólinux·şÎñÆ÷ÏÂÔØÎÄ¼şµ½±¾µØ
+    localpath  Îª±¾µØÎÄ¼şµÄ¾ø¶ÔÂ·¾¶¡£Èç£ºD:\test.py
+    remotepath Îª·şÎñÆ÷¶Ë´æ·ÅÉÏ´«ÎÄ¼şµÄ¾ø¶ÔÂ·¾¶,¶ø²»ÊÇÒ»¸öÄ¿Â¼¡£Èç£º/tmp/my_file.txt
     '''
     sftp.get(remotepath, localpath)
 
